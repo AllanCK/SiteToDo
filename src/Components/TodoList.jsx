@@ -16,10 +16,10 @@ const TodoList = () => {
             todo.id === id ? { ...todo, completed: !todo.completed } : todo
         ));
     };
+    console.log(todos)
 
     return (
         <div className="todo-list">
-            <h1>My Todo List</h1>
             <ul>
                 {todos.map(todo => (
                     <li
@@ -28,6 +28,7 @@ const TodoList = () => {
                       onClick={() => toggleTodo(todo.id)}
                     >
                         {todo.title}
+                        <span className="todo-priority">{todo.priority}</span>
                         <span className="todo-status">
                             {todo.completed ? 'Completed' : 'Pending'}
                         </span>

@@ -1,25 +1,32 @@
 .todo-list {
     font-family: Arial, sans-serif;
-    max-width: 600px;
+    width: 100%; /* Define a largura da lista como 90% da largura da tela */
+    max-width: 2000px; /* Define a largura máxima da lista para garantir que não fique muito larga */
     margin: 0 auto;
     padding: 20px;
-}
-
-.todo-list h1 {
-    color: #333;
     text-align: center;
 }
 
-.todo-item {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+ul {
+    list-style: none;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+li.todo-item {
+    background: #f0f0f0;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    flex: 1 0 45%; /* Ajuste essa propriedade para garantir que dois itens sejam exibidos por linha */
+    max-width: 45%; /* Ajuste essa propriedade conforme necessário */
+    text-align: left;
+    position: relative;
+    box-sizing: border-box; /* Ensure padding and border are included in the width calculation */
 }
 
 .todo-item.completed {
@@ -28,6 +35,18 @@
 }
 
 .todo-status {
-    font-size: 0.9em;
-    color: #666;
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.todo-priority {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+}
+
+.todo-title {
+    display: inline-block;
 }
