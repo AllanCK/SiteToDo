@@ -1,0 +1,33 @@
+.todo-list {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.todo-list h1 {
+    color: #333;
+    text-align: center;
+}
+
+.todo-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.todo-item.completed {
+    background: #d4edda;
+    text-decoration: line-through;
+}
+
+.todo-status {
+    font-size: 0.9em;
+    color: #666;
+}
