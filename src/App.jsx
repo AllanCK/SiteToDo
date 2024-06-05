@@ -7,34 +7,20 @@ const Titulo = Title;
 const Cabecalho = Header;
 
 export default function App() {
-  const [titulo, setTitulo] = useState({
-    name: "",
-    completed: "",
-    prioridade: "",
-  });
+  const [name, setName] = useState("");
+  const [completado, setCompletado] = useState(false);
+  const [prioridade, setPrioridade] = useState("todos");
 
   function handleNameChange(e) {
-    setTitulo({
-      ...titulo,
-      name: e.target.value,
-    });
-    console.log(titulo);
+    setName(e.target.value);
   }
 
   function ToggleCompleted(e) {
-    setTitulo({
-      ...titulo,
-      completed: titulo.completed !== "completed" ? "completed" : "",
-    });
-    console.log(titulo.completed);
+    setCompletado(!completado);
   }
 
   function handlePriorityChange(e) {
-    setTitulo({
-      ...titulo,
-      prioridade: e.target.value,
-    });
-    console.log(titulo.prioridade);
+    setPrioridade(e.target.value);
   }
 
   return (
@@ -60,11 +46,11 @@ export default function App() {
           </label>
           <label>
             Name:
-            <input value={titulo.name} onChange={handleNameChange} />
+            <input value={name} onChange={handleNameChange} />
           </label>
         </form>
       </Cabecalho>
-      <TodoList orderBy={titulo} />
+      <TodoList completado={completado} prioridade={prioridade} name={name} />
     </>
   );
 }
