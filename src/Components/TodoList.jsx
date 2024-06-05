@@ -21,8 +21,8 @@ const TodoList = (orderBy) => {
   };
 
   React.useEffect(() => {
-    todos?.sort();
-    console.log(todos);
+    const todo = todos?.sort(b , a);
+    console.log(todo);
   }, [orderBy]);
 
   return (
