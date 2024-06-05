@@ -4,7 +4,8 @@ import "./TodoList.css";
 
 const TodoList = (parametrosFiltro) => {
   const [todos, setTodos] = useState([]);
-  const [newLista, setNewLista] = useState(todos);
+  const [newLista, setNewLista] = useState([]);
+
   useEffect(() => {
     axios
       .get("https://dummyapi.online/api/todos")
@@ -13,29 +14,59 @@ const TodoList = (parametrosFiltro) => {
   }, []);
 
   const toggleTodo = (id) => {
-    setTodos(
+    setNewLista(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
-  setNewLista(todos);
+
   React.useEffect(() => {
-    listaToDoCompletado();
+    listaToDoPrioridade();
     console.log(newLista);
+    console.log(parametrosFiltro.prioridade);
   }, [parametrosFiltro.prioridade]);
 
   React.useEffect(() => {}, [parametrosFiltro.name]);
 
-  React.useEffect(() => {}, [parametrosFiltro.completado]);
+  React.useEffect(() => {
+    listaToDoCompletado();
+    console.log(parametrosFiltro.completado);
+  }, [parametrosFiltro.completado]);
 
   function listaToDoCompletado() {
-    if (parametrosFiltro.name != "" || parametrosFiltro.prioridade != "todos") {
-      setNewLista(newLista.filter((todo) => todo.completed));
-    } else {
-      setNewLista(todos.filter((todo) => todo.completed));
+    let filteredList = [...todos];
+    if (!parametrosFiltro.completado){
+      filteredList - newLista.filter((todo) => )
+
+
+
     }
+    if (
+      parametrosFiltro.name != "" ||
+      (parametrosFiltro.prioridade != "todos" && parametrosFiltro.completado)
+    ) {
+      filteredList = newLista.filter((todo) => todo.completed);
+    } else {
+      filteredList = todos.filter((todo) => todo.completed);
+    }
+    setNewLista(filteredList);
   }
+
+  function listaToDoPrioridade() {
+    let filteredList = [...todos];
+    if (parametrosFiltro.name != "" || parametrosFiltro.completado != "todos") {
+      filteredList = newLista.filter(
+        (todo) => todo.priority == parametrosFiltro.prioridade
+      );
+    } else {
+      filteredList = todos.filter(
+        (todo) => todo.priority == parametrosFiltro.prioridade
+      );
+    }
+    setNewLista(filteredList);
+  }
+
   return (
     <div className="todo-list">
       <ul>
