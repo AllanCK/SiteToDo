@@ -2,70 +2,96 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TodoList.css";
 
-const TodoList = (parametrosFiltro) => {
+const TodoList = (completado) => {
   const [todos, setTodos] = useState([]);
   const [newLista, setNewLista] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://dummyapi.online/api/todos")
-      .then((response) => setTodos(response.data))
+      .then((response) => {
+        setTodos(response.data);
+        setNewLista(response.data);
+      })
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  const toggleTodo = (id) => {
-    setNewLista(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+  // const toggleTodo = (id) => {
+  //   setNewLista(
+  //     todos.map((todo) =>
+  //       todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  //     )
+  //   );
+  // };
+
+  // React.useEffect(() => {
+  //   listaToDoPrioridade();
+  //   console.log(newLista);
+  //   console.log(parametrosFiltro.prioridade);
+  // }, [parametrosFiltro.prioridade]);
+
+  // React.useEffect(() => {}, [parametrosFiltro.name]);
+
+  // React.useEffect(() => {
+  //   listaToDoCompletado();
+  //   console.log(parametrosFiltro.completado);
+  // }, [parametrosFiltro.completado]);
+
+  // function listaToDoCompletado() {
+  //   let filteredList = [...todos];
+  //   // if (!parametrosFiltro.completado){
+  //   //   filteredList - newLista.filter((todo) => )
+
+  //   // }
+  //   if (
+  //     parametrosFiltro.name != "" ||
+  //     (parametrosFiltro.prioridade != "todos" && parametrosFiltro.completado)
+  //   ) {
+  //     filteredList = newLista.filter((todo) => todo.completed);
+  //   } else {
+  //     filteredList = todos.filter((todo) => todo.completed);
+  //   }
+  //   setNewLista(filteredList);
+  // }
+
+  // function listaToDoPrioridade() {
+  //   let filteredList = [...todos];
+  //   if (parametrosFiltro.name != "" || parametrosFiltro.completado != "todos") {
+  //     filteredList = newLista.filter(
+  //       (todo) => todo.priority == parametrosFiltro.prioridade
+  //     );
+  //   } else {
+  //     filteredList = todos.filter(
+  //       (todo) => todo.priority == parametrosFiltro.prioridade
+  // }
+  //     );
+  //   setNewLista(filteredList);
+  //   }
+
+  React.useEffect(() => {
+    let newListTodos = todos.filter(
+      (todo) => todo.completed == completado.completado
     );
-  };
+    setNewLista(newListTodos);
+  }, [completado.completado]);
 
   React.useEffect(() => {
-    listaToDoPrioridade();
-    console.log(newLista);
-    console.log(parametrosFiltro.prioridade);
-  }, [parametrosFiltro.prioridade]);
-
-  React.useEffect(() => {}, [parametrosFiltro.name]);
+    let newListTodos = todos.filter(
+      (todo) => todo.title.toLowerCase().startsWith(completado.name.toLowerCase())
+    );
+    setNewLista(newListTodos);
+  }, [completado.name]);
 
   React.useEffect(() => {
-    listaToDoCompletado();
-    console.log(parametrosFiltro.completado);
-  }, [parametrosFiltro.completado]);
-
-  function listaToDoCompletado() {
-    let filteredList = [...todos];
-    if (!parametrosFiltro.completado){
-      filteredList - newLista.filter((todo) => )
-
-
-
-    }
-    if (
-      parametrosFiltro.name != "" ||
-      (parametrosFiltro.prioridade != "todos" && parametrosFiltro.completado)
-    ) {
-      filteredList = newLista.filter((todo) => todo.completed);
+    if (completado.prioridade == "todos") {
+      setNewLista(todos);
     } else {
-      filteredList = todos.filter((todo) => todo.completed);
-    }
-    setNewLista(filteredList);
-  }
-
-  function listaToDoPrioridade() {
-    let filteredList = [...todos];
-    if (parametrosFiltro.name != "" || parametrosFiltro.completado != "todos") {
-      filteredList = newLista.filter(
-        (todo) => todo.priority == parametrosFiltro.prioridade
+      let newListTodos = todos.filter(
+        (todo) => todo.priority == completado.prioridade
       );
-    } else {
-      filteredList = todos.filter(
-        (todo) => todo.priority == parametrosFiltro.prioridade
-      );
+      setNewLista(newListTodos);
     }
-    setNewLista(filteredList);
-  }
+  }, [completado.prioridade]);
 
   return (
     <div className="todo-list">

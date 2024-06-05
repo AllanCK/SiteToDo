@@ -20,7 +20,7 @@ export default function App() {
   }
 
   function handlePriorityChange(e) {
-    setPrioridade(e.target.value);
+    setPrioridade((prev) => (prev = e.target.value));
   }
 
   return (
@@ -50,7 +50,7 @@ export default function App() {
           </label>
         </form>
       </Cabecalho>
-      <TodoList completado={completado} prioridade={prioridade} name={name} />
+      <TodoList name={name} completado={completado} prioridade={prioridade} />
     </>
   );
 }
