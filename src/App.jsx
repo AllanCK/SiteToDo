@@ -1,41 +1,67 @@
 import { useState } from "react";
 import TodoList from "./Components/TodoList";
-import { Header, Title } from "./Components/Style.jsx";
+import { Header, Title, botaoInsert, formInsert } from "./Components/Style.jsx";
 import "./App.css";
 
 const Titulo = Title;
 const Cabecalho = Header;
+const FormInsert = formInsert;
+const BotaoInsert = botaoInsert;
 
 export default function App() {
   const [name, setName] = useState("");
-  const [completado, setCompletado] = useState(false);
+  const [completado, setCompletado] = useState("todos");
   const [prioridade, setPrioridade] = useState("todos");
+  const [insertName, setInsertName] = useState("");
+  const [insertCompletado, setInsertCompletado] = useState(false);
+  const [insertPrioridade, setInsertPrioridade] = useState("medium");
+  const [newToDo, setNewToDo] = useState([]);
 
   function handleNameChange(e) {
     setName(e.target.value);
   }
 
-  function ToggleCompleted(e) {
-    setCompletado(!completado);
+  function handleCompletedChange(e) {
+    setCompletado((prev) => (prev = e.target.value));
   }
 
   function handlePriorityChange(e) {
     setPrioridade((prev) => (prev = e.target.value));
   }
 
+  function handleInsertName(e) {
+    setInsertName(e.target.value);
+  }
+
+  function handleInsertCompleted(e) {
+    setInsertCompletado((prev) => (prev = e.target.value));
+  }
+
+  function handleInsertPriority(e) {
+    setInsertPrioridade((prev) => (prev = e.target.value));
+
+  }
+
+  function handleButtonCreate(e) {
+    if (insertName){
+      setNewToDo({id: 0, title: insertName, completed: insertCompletado,priority: insertPrioridade})
+    }
+  }
+
   return (
     <>
       <Cabecalho>
-        <Title>My Todo List</Title>
         <form>
-          <label>Completed</label>
-          <input
-            type="checkbox"
-            id="completed"
-            value="completed"
-            onClick={ToggleCompleted}
-          />
-          <label value="Priority">Priority</label>
+        <Title>My Todo List</Title>
+          <label>Completado:</label>
+          <label>
+            <select onChange={handleCompletedChange}>
+              <option value="todos">Todos</option>
+              <option value="true">Completado</option>
+              <option value="">Pendente</option>
+            </select>
+          </label>
+          <label value="Priority">Prioridade:</label>
           <label>
             <select onChange={handlePriorityChange}>
               <option value="todos">Todos</option>
@@ -45,12 +71,38 @@ export default function App() {
             </select>
           </label>
           <label>
-            Name:
+            Nome:
             <input value={name} onChange={handleNameChange} />
           </label>
         </form>
+
+        <FormInsert>
+          <h1>Criar nova tarefa:</h1>
+          <label>Completado:</label>
+          <label>
+            <select onChange={handleInsertCompleted}>
+              <option value="">Pendente</option>
+              <option value="true">Completado</option>
+            </select>
+          </label>
+          <label value="Priority">Prioridade</label>
+          <label>
+            <select onChange={handleInsertPriority}>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+          </label>
+          <label>
+            Nome:
+            <input value={insertName} onChange={handleInsertName} />
+          </label>
+          <BotaoInsert type={'button'} onClick={handleButtonCreate}>Criar</BotaoInsert>
+        </FormInsert>
+
+
       </Cabecalho>
-      <TodoList name={name} completado={completado} prioridade={prioridade} />
+      <TodoList name={name} completado={completado} prioridade={prioridade} neToDo={newToDo} />
     </>
   );
 }

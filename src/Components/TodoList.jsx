@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TodoList.css";
 
-const TodoList = (completado) => {
+const TodoList = ({name, completado, prioridade, neToDo}) => {
   const [todos, setTodos] = useState([]);
   const [newLista, setNewLista] = useState([]);
+  const [newToDo, setNewToDo] = useState([])
 
   useEffect(() => {
     axios
@@ -16,82 +17,56 @@ const TodoList = (completado) => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  // const toggleTodo = (id) => {
-  //   setNewLista(
-  //     todos.map((todo) =>
-  //       todo.id === id ? { ...todo, completed: !todo.completed } : todo
-  //     )
-  //   );
-  // };
-
-  // React.useEffect(() => {
-  //   listaToDoPrioridade();
-  //   console.log(newLista);
-  //   console.log(parametrosFiltro.prioridade);
-  // }, [parametrosFiltro.prioridade]);
-
-  // React.useEffect(() => {}, [parametrosFiltro.name]);
-
-  // React.useEffect(() => {
-  //   listaToDoCompletado();
-  //   console.log(parametrosFiltro.completado);
-  // }, [parametrosFiltro.completado]);
-
-  // function listaToDoCompletado() {
-  //   let filteredList = [...todos];
-  //   // if (!parametrosFiltro.completado){
-  //   //   filteredList - newLista.filter((todo) => )
-
-  //   // }
-  //   if (
-  //     parametrosFiltro.name != "" ||
-  //     (parametrosFiltro.prioridade != "todos" && parametrosFiltro.completado)
-  //   ) {
-  //     filteredList = newLista.filter((todo) => todo.completed);
-  //   } else {
-  //     filteredList = todos.filter((todo) => todo.completed);
-  //   }
-  //   setNewLista(filteredList);
-  // }
-
-  // function listaToDoPrioridade() {
-  //   let filteredList = [...todos];
-  //   if (parametrosFiltro.name != "" || parametrosFiltro.completado != "todos") {
-  //     filteredList = newLista.filter(
-  //       (todo) => todo.priority == parametrosFiltro.prioridade
-  //     );
-  //   } else {
-  //     filteredList = todos.filter(
-  //       (todo) => todo.priority == parametrosFiltro.prioridade
-  // }
-  //     );
-  //   setNewLista(filteredList);
-  //   }
-
-  React.useEffect(() => {
-    let newListTodos = todos.filter(
-      (todo) => todo.completed == completado.completado
+  const toggleTodo = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
     );
-    setNewLista(newListTodos);
-  }, [completado.completado]);
-
-  React.useEffect(() => {
-    let newListTodos = todos.filter(
-      (todo) => todo.title.toLowerCase().startsWith(completado.name.toLowerCase())
+    setNewLista(
+      newLista.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
     );
-    setNewLista(newListTodos);
-  }, [completado.name]);
+  };
 
   React.useEffect(() => {
-    if (completado.prioridade == "todos") {
-      setNewLista(todos);
-    } else {
-      let newListTodos = todos.filter(
-        (todo) => todo.priority == completado.prioridade
-      );
-      setNewLista(newListTodos);
+    let lista = todos
+    lista = listaToDoCompletado(lista);
+    lista = listaToDoPrioridade(lista);
+    lista = listaToDoName(lista);
+    setNewLista(lista)
+  }, [name, prioridade, completado]);
+
+  React.useEffect(() => {
+    if (!!neToDo.title){
+    neToDo.id = Number(todos.length+1)
+    setNewToDo(neToDo)
+    todos.push(neToDo)
+    console.log(neToDo)
+    console.log(todos)
     }
-  }, [completado.prioridade]);
+  }, [neToDo])
+
+  function listaToDoCompletado(listaTemp) {
+    if (completado != 'todos'){  
+      return listaTemp.filter((todo) => todo.completed == !!completado)
+    }else{
+      return listaTemp
+    }
+  }
+
+  function listaToDoPrioridade(listaTemp) {
+    if (prioridade != 'todos'){  
+      return listaTemp.filter((todo) => todo.priority == prioridade)
+    }else{
+      return listaTemp
+    }
+  }
+
+  function listaToDoName(listaTemp) {
+    return listaTemp.filter((todo) => todo.title.toUpperCase().startsWith(name.toUpperCase()))
+  }
 
   return (
     <div className="todo-list">
