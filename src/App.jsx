@@ -22,11 +22,11 @@ export default function App() {
   }
 
   function handleCompletedChange(e) {
-    setCompletado((prev) => (prev = e.target.value));
+    setCompletado(() => (e.target.value));
   }
 
   function handlePriorityChange(e) {
-    setPrioridade((prev) => (prev = e.target.value));
+    setPrioridade(() => (e.target.value));
   }
 
   function handleInsertName(e) {
@@ -34,11 +34,11 @@ export default function App() {
   }
 
   function handleInsertCompleted(e) {
-    setInsertCompletado((prev) => (prev = e.target.value));
+    setInsertCompletado(() => (e.target.value));
   }
 
   function handleInsertPriority(e) {
-    setInsertPrioridade((prev) => (prev = e.target.value));
+    setInsertPrioridade(() => (e.target.value));
   }
 
   function handleButtonCreate() {
