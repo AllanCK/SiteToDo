@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TodoList.css";
 
-const TodoList = ({name, completado, prioridade, neToDo}) => {
+const TodoList = ({ name, completado, prioridade, neToDo }) => {
   const [todos, setTodos] = useState([]);
   const [newLista, setNewLista] = useState([]);
-  const [newToDo, setNewToDo] = useState([])
+  const [newToDo, setNewToDo] = useState([]);
 
   useEffect(() => {
     axios
@@ -31,41 +31,43 @@ const TodoList = ({name, completado, prioridade, neToDo}) => {
   };
 
   React.useEffect(() => {
-    let lista = todos
+    let lista = todos;
     lista = listaToDoCompletado(lista);
     lista = listaToDoPrioridade(lista);
     lista = listaToDoName(lista);
-    setNewLista(lista)
+    setNewLista(lista);
   }, [name, prioridade, completado]);
 
   React.useEffect(() => {
-    if (!!neToDo.title){
-    neToDo.id = Number(todos.length+1)
-    setNewToDo(neToDo)
-    todos.push(neToDo)
-    console.log(neToDo)
-    console.log(todos)
+    if (!!neToDo.title) {
+      neToDo.id = Number(todos.length + 1);
+      setNewToDo(neToDo);
+      todos.push(neToDo);
+      console.log(neToDo);
+      console.log(todos);
     }
-  }, [neToDo])
+  }, [neToDo]);
 
   function listaToDoCompletado(listaTemp) {
-    if (completado != 'todos'){  
-      return listaTemp.filter((todo) => todo.completed == !!completado)
-    }else{
-      return listaTemp
+    if (completado != "todos") {
+      return listaTemp.filter((todo) => todo.completed == !!completado);
+    } else {
+      return listaTemp;
     }
   }
 
   function listaToDoPrioridade(listaTemp) {
-    if (prioridade != 'todos'){  
-      return listaTemp.filter((todo) => todo.priority == prioridade)
-    }else{
-      return listaTemp
+    if (prioridade != "todos") {
+      return listaTemp.filter((todo) => todo.priority == prioridade);
+    } else {
+      return listaTemp;
     }
   }
 
   function listaToDoName(listaTemp) {
-    return listaTemp.filter((todo) => todo.title.toUpperCase().startsWith(name.toUpperCase()))
+    return listaTemp.filter((todo) =>
+      todo.title.toUpperCase().startsWith(name.toUpperCase())
+    );
   }
 
   return (

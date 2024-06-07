@@ -39,12 +39,16 @@ export default function App() {
 
   function handleInsertPriority(e) {
     setInsertPrioridade((prev) => (prev = e.target.value));
-
   }
 
   function handleButtonCreate(e) {
-    if (insertName){
-      setNewToDo({id: 0, title: insertName, completed: insertCompletado,priority: insertPrioridade})
+    if (insertName) {
+      setNewToDo({
+        id: 0,
+        title: insertName,
+        completed: insertCompletado,
+        priority: insertPrioridade,
+      });
     }
   }
 
@@ -52,7 +56,7 @@ export default function App() {
     <>
       <Cabecalho>
         <form>
-        <Title>My Todo List</Title>
+          <Title>My Todo List</Title>
           <label>Completado:</label>
           <label>
             <select onChange={handleCompletedChange}>
@@ -97,12 +101,17 @@ export default function App() {
             Nome:
             <input value={insertName} onChange={handleInsertName} />
           </label>
-          <BotaoInsert type={'button'} onClick={handleButtonCreate}>Criar</BotaoInsert>
+          <BotaoInsert type={"button"} onClick={handleButtonCreate}>
+            Criar
+          </BotaoInsert>
         </FormInsert>
-
-
       </Cabecalho>
-      <TodoList name={name} completado={completado} prioridade={prioridade} neToDo={newToDo} />
+      <TodoList
+        name={name}
+        completado={completado}
+        prioridade={prioridade}
+        neToDo={newToDo}
+      />
     </>
   );
 }
