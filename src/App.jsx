@@ -41,7 +41,7 @@ export default function App() {
     setInsertPrioridade((prev) => (prev = e.target.value));
   }
 
-  function handleButtonCreate(e) {
+  function handleButtonCreate() {
     if (insertName) {
       setNewToDo({
         id: 0,
@@ -56,7 +56,7 @@ export default function App() {
     <>
       <Cabecalho>
         <form>
-          <Title>My Todo List</Title>
+          <Titulo>My Todo List</Titulo>
           <label>Completado:</label>
           <label>
             <select onChange={handleCompletedChange}>
@@ -81,7 +81,7 @@ export default function App() {
         </form>
 
         <FormInsert>
-          <h1>Criar nova tarefa:</h1>
+          <Titulo>Criar nova tarefa:</Titulo>
           <label>Completado:</label>
           <label>
             <select onChange={handleInsertCompleted}>

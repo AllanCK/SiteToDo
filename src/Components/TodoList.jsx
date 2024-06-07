@@ -39,7 +39,7 @@ const TodoList = ({ name, completado, prioridade, neToDo }) => {
   }, [name, prioridade, completado]);
 
   React.useEffect(() => {
-    if (!!neToDo.title) {
+    if (neToDo.title) {
       neToDo.id = Number(todos.length + 1);
       setNewToDo(neToDo);
       todos.push(neToDo);
