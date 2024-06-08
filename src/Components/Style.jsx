@@ -5,7 +5,7 @@ export const formFilter = styled.form`
 `;
 
 export const Title = styled.h1`
-  font-size: 5em;
+  font-size: 4em;
   text-align: left;
   margin: 5px auto;
   color: #bf4f74;
@@ -20,7 +20,8 @@ export const formInsert = styled.form`
   padding-right: 2em;
   padding-bottom: 2em;
   autocomplete: off;
-  position: relative;
+  flex: 1;
+  flexDirection:'row';
 `;
 
 export const botaoInsert = styled.button`

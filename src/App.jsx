@@ -55,7 +55,7 @@ export default function App() {
   return (
     <>
       <Cabecalho>
-        <form>
+        <form float="left">
           <Titulo>My Todo List</Titulo>
           <label>Completado:</label>
           <label>
@@ -65,15 +65,15 @@ export default function App() {
               <option value="">Pendente</option>
             </select>
           </label>
+          <div>
           <label value="Priority">Prioridade:</label>
-          <label>
             <select onChange={handlePriorityChange}>
               <option value="todos">Todos</option>
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
             </select>
-          </label>
+          </div>
           <label>
             Nome:
             <input value={name} onChange={handleNameChange} />
@@ -81,7 +81,7 @@ export default function App() {
         </form>
 
         <FormInsert>
-          <Titulo>Criar nova tarefa:</Titulo>
+          <h1>Criar nova tarefa:</h1>
           <label>Completado:</label>
           <label>
             <select onChange={handleInsertCompleted}>
